@@ -1,0 +1,10 @@
+{
+  "lambda": {
+    "role": "vrock-claudia-executor",
+    "name": "vrock-claudia",
+    "region": "us-west-2"
+  },
+  "api": {
+    "id": "uyb0241cs8"
+  }
+}

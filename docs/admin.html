@@ -1,0 +1,71 @@
+<html>
+Admin page for vrock.it/index.html (dynamoDB) <br><br>
+<script>
+var DBURL = 'https://uyb0241cs8.execute-api.us-west-2.amazonaws.com/vrock';
+
+var mData;
+
+function getAll() {
+    fetch(`${DBURL}/allMsgs`).then(r => r.json()).then( data=> {
+    	mData = data.Items;
+    });
+};
+
+function deleteItems(items) {
+    var params = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        },
+        body: `${JSON.stringify(items)}`
+    };
+    console.log(`BATCH ${items.length}sz  :${JSON.stringify(params)} `);
+    fetch(`https://uyb0241cs8.execute-api.us-west-2.amazonaws.com/vrock/deleteItems`, params);    
+}
+
+function deleteBatches(items) {
+	console.log(`total items:${items.length} `);
+	do  {
+	    var batch = items.slice(-25);
+	    items = items.slice(25);
+	    console.log(`batch ${batch.length}  items:${items.length} `);
+	    deleteItems(batch)
+	} while (items.length);
+
+
+}
+
+function deleteAll() {
+	var items = mData.map( i => i.markupId );
+	deleteBatches(items);
+}
+
+
+
+function deleteUserData() {
+	var items = mData
+		.filter(i =>  ((i.type == "RFI") || (i.type == "Isxsue")) )
+		.map(   i => i.markupId );
+	deleteBatches(items);
+}
+
+function deleteCreator(creator) {
+	if (!creator) return;
+	var items = mData
+		.filter(i => i.creator == creator )
+		.map(   i => i.markupId );
+	deleteBatches(items);
+}
+
+getAll();
+
+</script>
+<body>
+<a href="#" onclick="deleteAll()">Delete All</a><br><br><br>
+<a href="#" onclick="deleteUserData()">Delete All but BIM-IQ Data</a><br><br><br>
+<a href="#" onclick="deleteCreator(prompt('enter creator'))">Delete Creator (prompt will appear)</a>
+
+<a href="#" onclick="upload()">Upload button</a><br><br><br>
+
+</body></html>
