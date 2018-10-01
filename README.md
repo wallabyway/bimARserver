@@ -3,7 +3,7 @@
 
 Demo site: [VROCK.IT](http://vrock.it)
 
-![](collaborative-AR.jpg)
+![](https://user-images.githubusercontent.com/440241/46316387-08ec2b00-c59e-11e8-9589-fcdc6b422b41.jpg)
 
 
  
@@ -28,5 +28,5 @@ markupExt.js - Threejs Point Cloud implementation was a hybrid of Dasher Project
 
 ## Screenshots
 Viewer:
-![](BIMIQ-tab.png)
+![](https://user-images.githubusercontent.com/440241/46316386-08ec2b00-c59e-11e8-9928-b5bfa324f6bd.png)
 
